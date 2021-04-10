@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/mainScreen">
+
+    <fragment
+        tools:layout="@layout/main_screen"
+        android:id="@+id/mainScreen"
+        android:name="org.eshendo.soopra.ui.fragments.main.MainScreenImpl"
+        android:label="MainScreen" >
+        <action
+            android:id="@+id/action_mainScreen_to_allMoviesScreen"
+            app:destination="@id/allMoviesScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_movieScreen"
+            app:destination="@id/movieScreen" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/all_movies_screen"
+        android:id="@+id/allMoviesScreen"
+        android:name="org.eshendo.soopra.ui.fragments.allmovies.AllMoviesScreenImpl"
+        android:label="AllMoviesScreen" >
+        <action
+            android:id="@+id/action_allMoviesScreen_to_movieScreen"
+            app:destination="@id/movieScreen" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/movie_screen"
+        android:id="@+id/movieScreen"
+        android:name="org.eshendo.soopra.ui.fragments.movie.MovieScreenImpl"
+        android:label="MovieScreenImpl" />
+</navigation>

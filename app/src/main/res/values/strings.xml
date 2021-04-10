@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Soopra</string>
+    <string name="trending_now">Trending now</string>
+    <string name="latest_releases">Latest releases</string>
+    <string name="film_of_the_day">Film of the day</string>
+    <string name="all_movies">All movies</string>
+    <string name="fake_description">Long description of the plot etc Long description of the plot etc Long description of the plot etc Long description of the plot etc</string>
+</resources>

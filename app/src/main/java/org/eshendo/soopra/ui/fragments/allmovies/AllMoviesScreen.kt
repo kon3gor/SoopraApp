@@ -10,16 +10,14 @@ import org.eshendo.soopra.R
 import org.eshendo.soopra.databinding.AllMoviesScreenBinding
 import org.eshendo.soopra.model.Movie
 import org.eshendo.soopra.ui.fragments.allmovies.adapter.MoviesGridAdapter
-import org.eshendo.soopra.ui.fragments.allmovies.viewmodel.AllMoviesScreenState
 import org.eshendo.soopra.ui.fragments.allmovies.viewmodel.AllMoviesViewModel
 import org.eshendo.soopra.ui.fragments.main.adapter.MoviesAdapter
-import org.eshendo.soopra.ui.fragments.main.viewmodel.MainScreenState
-import org.eshendo.soopra.ui.fragments.main.viewmodel.MainViewModel
 import org.eshendo.soopra.util.Screen
+import org.eshendo.soopra.util.toast
 import org.eshendo.zebraapp.util.ViewBindingFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
-interface AllMoviesScreen : Screen<AllMoviesScreenState>{
+interface AllMoviesScreen : Screen{
     fun setupGrid()
     fun setupListeners()
     fun movieCliced(m: Movie)
@@ -42,13 +40,14 @@ class AllMoviesScreenImpl : ViewBindingFragment<AllMoviesScreenBinding>(), AllMo
     override fun setup() {
         setupGrid()
         setupListeners()
-        update()
     }
 
     override fun observe(){
-        allMoviesViewModel.viewState.observe(viewLifecycleOwner, Observer {
-            updateState(it)
-        })
+
+    }
+
+    override fun toastError(msg: String) {
+        toast(msg)
     }
 
     override fun setupGrid(){
@@ -68,33 +67,4 @@ class AllMoviesScreenImpl : ViewBindingFragment<AllMoviesScreenBinding>(), AllMo
         findNavController().navigate(R.id.action_allMoviesScreen_to_movieScreen)
     }
 
-    private fun update(){
-        updateState(AllMoviesScreenState.LoadingState)
-        Handler(requireActivity().mainLooper).postDelayed({
-            if (this@AllMoviesScreenImpl.isAdded){
-                updateState(AllMoviesScreenState.DataLoadedState(movies))
-            }
-        }, 4000)
-    }
-
-    override fun updateState(state: AllMoviesScreenState){
-        when(state){
-            AllMoviesScreenState.LoadingState -> {
-                moviesGridAdapter.update(movies, true)
-                moviesListAdapter.update(movies, true)
-            }
-            AllMoviesScreenState.ErrorState -> {
-                Snackbar.make(binding.root, "Something went wrong", 2000).show()
-            }
-
-            is AllMoviesScreenState.DataLoadedState -> {
-                toDataLoadedState(state.movies)
-            }
-        }
-    }
-
-    private fun toDataLoadedState(movies: List<Movie>) {
-        moviesGridAdapter.update(movies, false )
-        moviesListAdapter.update(movies, false )
-    }
 }

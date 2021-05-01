@@ -7,9 +7,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import org.eshendo.soopra.databinding.GenreItemBinding
 import org.eshendo.soopra.databinding.MovieScreenBinding
+import org.eshendo.soopra.util.Screen
+import org.eshendo.soopra.util.toast
 import org.eshendo.zebraapp.util.ViewBindingFragment
 
-interface MovieScreen{
+interface MovieScreen : Screen{
     fun setupTags()
     fun requestMovie()
     fun setupListeners()
@@ -59,5 +61,13 @@ class MovieScreenImpl : ViewBindingFragment<MovieScreenBinding>(),
 
     override fun toDataLoadedState() {
         TODO("Not yet implemented")
+    }
+
+    override fun observe() {
+        TODO("Not yet implemented")
+    }
+
+    override fun toastError(msg: String) {
+        toast(msg)
     }
 }

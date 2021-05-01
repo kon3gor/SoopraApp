@@ -5,7 +5,5 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 @Suppress("PropertyName")
-abstract class BaseViewModel<T> : ViewModel() {
-    protected val _viewState = MutableLiveData<T>()
-    val viewState: LiveData<T> get() = _viewState
+abstract class BaseViewModel : ViewModel() {
 }

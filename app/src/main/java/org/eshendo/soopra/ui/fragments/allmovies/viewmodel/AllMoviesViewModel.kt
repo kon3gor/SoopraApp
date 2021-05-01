@@ -7,19 +7,13 @@ import org.eshendo.soopra.model.ErrorObject
 import org.eshendo.soopra.model.Movie
 import org.eshendo.soopra.util.BaseViewModel
 
-abstract class AllMoviesViewModel : BaseViewModel<AllMoviesScreenState>(){
+abstract class AllMoviesViewModel : BaseViewModel(){
 
     protected var movies = listOf<Movie>()
 
     abstract fun requestMovies()
     abstract fun gotData(movies: List<Movie>)
     abstract fun onError(error: ErrorObject)
-}
-
-sealed class AllMoviesScreenState{
-    object LoadingState : AllMoviesScreenState()
-    object ErrorState : AllMoviesScreenState()
-    class DataLoadedState(val movies: List<Movie>) : AllMoviesScreenState()
 }
 
 class AllMoviesViewModelImpl : AllMoviesViewModel() {

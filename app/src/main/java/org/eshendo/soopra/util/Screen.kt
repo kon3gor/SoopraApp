@@ -1,6 +1,6 @@
 package org.eshendo.soopra.util
 
-interface Screen<T> {
-    fun updateState(state: T)
+interface Screen{
     fun observe()
+    fun toastError(msg: String)
 }

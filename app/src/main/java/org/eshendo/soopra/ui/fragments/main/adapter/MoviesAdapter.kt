@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
+import com.squareup.picasso.Picasso
 import org.eshendo.soopra.R
 import org.eshendo.soopra.databinding.MovieListItemBinding
 import org.eshendo.soopra.model.Movie
+import org.eshendo.soopra.util.IMAGE_URL
 
 class MoviesAdapter(
     private var list: List<Movie>,
@@ -39,6 +42,14 @@ class MoviesAdapter(
 
             binding.veil.shimmer = shimmer
             binding.root.setOnClickListener { movieClicked(movie) }
+
+            if (movie.poster != ""){
+/*                Picasso.get()
+                    .load(IMAGE_URL + movie.poster)
+                    .placeholder(R.drawable.ic_placeholder)
+                    .into(binding.poster)*/
+                Glide.with(context).load(IMAGE_URL + movie.poster).placeholder(R.drawable.ic_placeholder).into(binding.poster)
+            }
         }
 
     }

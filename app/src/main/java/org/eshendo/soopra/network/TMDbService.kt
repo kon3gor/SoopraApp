@@ -3,8 +3,8 @@ package org.eshendo.soopra.network
 import io.reactivex.rxjava3.core.Observable
 import org.eshendo.soopra.model.Movie
 import org.eshendo.soopra.network.response.MoviesPageResponse
-import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TMDbService {
@@ -26,6 +26,12 @@ interface TMDbService {
 
     @GET("movie/latest")
     fun getMovieOfTheDay(
+        @Query("api_key") token: String
+    ) : Observable<Movie>
+
+    @GET("movie/{movie_id}")
+    fun getMovie(
+        @Path("movie_id") movieId: Long,
         @Query("api_key") token: String
     ) : Observable<Movie>
 }

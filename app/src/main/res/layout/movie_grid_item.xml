@@ -26,6 +26,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/poster"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/fake_poster"

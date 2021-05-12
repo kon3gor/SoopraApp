@@ -1,6 +1,7 @@
 package org.eshendo.soopra
 
 import android.app.Application
+import org.eshendo.soopra.db.databseModule
 import org.eshendo.soopra.network.networkModule
 import org.eshendo.soopra.repo.LocalRepository
 import org.eshendo.soopra.repo.LocalRepositoryImpl
@@ -10,6 +11,8 @@ import org.eshendo.soopra.ui.fragments.allmovies.viewmodel.AllMoviesViewModel
 import org.eshendo.soopra.ui.fragments.allmovies.viewmodel.AllMoviesViewModelImpl
 import org.eshendo.soopra.ui.fragments.main.viewmodel.MainViewModel
 import org.eshendo.soopra.ui.fragments.main.viewmodel.MainViewModelImpl
+import org.eshendo.soopra.ui.fragments.movie.viemodel.MovieViewModel
+import org.eshendo.soopra.ui.fragments.movie.viemodel.MovieViewModelImpl
 import org.eshendo.soopra.usecases.network.NetworkUseCase
 import org.eshendo.soopra.util.BaseViewModel
 import org.koin.android.ext.android.get
@@ -23,12 +26,13 @@ class SoopraApplication : Application() {
 
     private val viewModelModule = module {
         viewModel{ MainViewModelImpl() }
-        viewModel{ AllMoviesViewModelImpl() as AllMoviesViewModel }
+        viewModel{ AllMoviesViewModelImpl()}
+        viewModel{ MovieViewModelImpl()}
     }
 
     private val repoModule = module {
         single<NetworkRepository> { NetworkRepositoryImpl(get()) }
-        single<LocalRepository> { LocalRepositoryImpl() }
+        single<LocalRepository> { LocalRepositoryImpl(get()) }
     }
 
     override fun onCreate() {
@@ -36,7 +40,7 @@ class SoopraApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@SoopraApplication)
-            modules(viewModelModule, repoModule, networkModule)
+            modules(viewModelModule, repoModule, networkModule, databseModule)
         }
     }
 }

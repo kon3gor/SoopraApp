@@ -26,6 +26,7 @@ import org.eshendo.soopra.util.Screen
 import org.eshendo.soopra.util.toast
 import org.eshendo.zebraapp.util.ViewBindingFragment
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.lang.Exception
 import java.util.*
 
 interface MainScreen : Screen{
@@ -77,7 +78,7 @@ class MainScreenImpl : ViewBindingFragment<MainScreenBinding>(), MainScreen {
 
     }
 
-    override fun toastError(msg: String) {
+    fun toastError(msg: String) {
         toast(msg)
     }
 
@@ -114,7 +115,10 @@ class MainScreenImpl : ViewBindingFragment<MainScreenBinding>(), MainScreen {
     }
 
     override fun movieClicked(m: Movie) {
-        findNavController().navigate(R.id.action_mainScreen_to_movieScreen)
+        if (m.id != -1L){
+            val action = MainScreenImplDirections.actionMainScreenToMovieScreen(m.id)
+            findNavController().navigate(action)
+        }
     }
 
     override fun gotTrendingMovies(movies: MovieList){
@@ -128,7 +132,9 @@ class MainScreenImpl : ViewBindingFragment<MainScreenBinding>(), MainScreen {
     override fun gotFilmOfTheDay(movie: Movie) {
         binding.filmOfTheDayVeil.unVeil()
         if (movie.poster != ""){
-            Glide.with(requireContext()).load(IMAGE_URL + movie.poster).placeholder(R.drawable.ic_placeholder).into(binding.filmOfTheDayPoster)
+            Glide.with(requireContext()).load(IMAGE_URL + movie.poster)
+                .placeholder(R.drawable.ic_placeholder)
+                .into(binding.filmOfTheDayPoster)
         }
         val fakeStr = getString(R.string.fake_description)
         val textToPrint =
@@ -149,13 +155,15 @@ class MainScreenImpl : ViewBindingFragment<MainScreenBinding>(), MainScreen {
         var ind = 0
         Timer().schedule(object : TimerTask(){
             override fun run() {
-                current += text[ind++]
-                if (ind == size) this.cancel()
-                if (this@MainScreenImpl.isVisible){
-                    updateDescription(current)
-                }else{
-                    this.cancel()
-                }
+                try{
+                    current += text[ind++]
+                    if (ind == size) this.cancel()
+                    if (this@MainScreenImpl.isVisible){
+                        updateDescription(current)
+                    }else{
+                        this.cancel()
+                    }
+                }catch (e: Exception){this.cancel()}
             }
         }, 0, 20)
     }

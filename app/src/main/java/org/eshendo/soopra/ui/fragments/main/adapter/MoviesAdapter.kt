@@ -44,10 +44,6 @@ class MoviesAdapter(
             binding.root.setOnClickListener { movieClicked(movie) }
 
             if (movie.poster != ""){
-/*                Picasso.get()
-                    .load(IMAGE_URL + movie.poster)
-                    .placeholder(R.drawable.ic_placeholder)
-                    .into(binding.poster)*/
                 Glide.with(context).load(IMAGE_URL + movie.poster).placeholder(R.drawable.ic_placeholder).into(binding.poster)
             }
         }

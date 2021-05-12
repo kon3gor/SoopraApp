@@ -7,7 +7,7 @@ class LocalTask<T>(
     private val func: () -> T?
 ) : BaseTask() {
 
-    override fun execute() {
+    override  fun execute() {
         val r = func()
         if (r == null){
             val error = ErrorObject(message = ":(")

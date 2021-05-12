@@ -1,9 +1,12 @@
 package org.eshendo.soopra.ui.custom
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
 
 class CircularRatingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -16,6 +19,8 @@ class CircularRatingView @JvmOverloads constructor(
     private var gradientMatrix = Matrix()
 
     private val sWidth = 20f
+
+    private var sweepAngle = 0f
 
     private val progressColor = Paint().apply {
         isDither = true
@@ -41,7 +46,22 @@ class CircularRatingView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.drawArc(sWidth, sWidth, this.width.toFloat() - sWidth, this.height.toFloat() - sWidth,
-            -90f, -270f, false, progressColor)
+            -90f, sweepAngle, false, progressColor)
 
+    }
+
+    fun drawNewAngle(rating: Float){
+        val target = 36*rating
+
+        ValueAnimator.ofFloat(0f, target).apply {
+            duration = 500
+            interpolator = LinearInterpolator()
+            addUpdateListener {
+                sweepAngle = -(it.animatedValue as Float)
+                invalidate()
+            }
+            startDelay = 300
+            start()
+        }
     }
 }

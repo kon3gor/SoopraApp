@@ -16,6 +16,7 @@ interface NetworkRepository : KoinComponent {
     fun getTopRatedMovies() : Observable<MoviesPageResponse>
     fun getLastestMovies() : Observable<MoviesPageResponse>
     fun getFilmOfTheDay() : Observable<Movie>
+    fun getDetails(id: Long) : Observable<Movie>
 }
 
 class NetworkRepositoryImpl(
@@ -36,5 +37,9 @@ class NetworkRepositoryImpl(
 
     override fun getFilmOfTheDay(): Observable<Movie> {
         return api.getMovieOfTheDay(API_KEY)
+    }
+
+    override fun getDetails(id: Long): Observable<Movie> {
+        return api.getMovie(id, API_KEY)
     }
 }

@@ -15,7 +15,12 @@
             app:destination="@id/allMoviesScreen" />
         <action
             android:id="@+id/action_mainScreen_to_movieScreen"
-            app:destination="@id/movieScreen" />
+            app:destination="@id/movieScreen" >
+            <argument
+                android:name="movieId"
+                app:argType="long"
+                />
+        </action>
     </fragment>
     <fragment
         tools:layout="@layout/all_movies_screen"
@@ -24,11 +29,21 @@
         android:label="AllMoviesScreen" >
         <action
             android:id="@+id/action_allMoviesScreen_to_movieScreen"
-            app:destination="@id/movieScreen" />
+            app:destination="@id/movieScreen" >
+            <argument
+                android:name="movieId"
+                app:argType="long"
+                />
+        </action>
     </fragment>
     <fragment
         tools:layout="@layout/movie_screen"
         android:id="@+id/movieScreen"
         android:name="org.eshendo.soopra.ui.fragments.movie.MovieScreenImpl"
-        android:label="MovieScreenImpl" />
+        android:label="MovieScreenImpl" >
+        <argument
+            android:name="movieId"
+            app:argType="long"
+            />
+    </fragment>
 </navigation>

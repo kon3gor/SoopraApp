@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger
 typealias MovieListPageLiveData = LiveData<UseCaseResult<MoviesPageResponse>>
 typealias MovieLiveData = LiveData<UseCaseResult<Movie>>
 
-interface  MainViewModel{
+interface MainViewModel{
 
     fun getTrendingMovies() : MovieListPageLiveData
     fun getLatestReleases(): MovieListPageLiveData

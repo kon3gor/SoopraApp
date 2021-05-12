@@ -33,9 +33,5 @@ abstract class UseCase<T> : KoinComponent {
         return liveData
     }
 
-    open fun proccessResult(r: UseCaseResult<T>){
-
-    }
-
     abstract fun execute() : LiveData<UseCaseResult<T>>
 }
